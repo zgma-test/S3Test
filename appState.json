@@ -1,0 +1,98 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "0fe1ce5f-7705-40ae-b768-90ca184944a1": {
+        "id": "0fe1ce5f-7705-40ae-b768-90ca184944a1",
+        "parent": null,
+        "name": "S3Test",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "acacb82b-f99a-4f4c-950d-d62ad9158ce3"
+        ],
+        "isRemovable": false,
+        "filePath": "S3Test"
+      },
+      "acacb82b-f99a-4f4c-950d-d62ad9158ce3": {
+        "id": "acacb82b-f99a-4f4c-950d-d62ad9158ce3",
+        "parent": "0fe1ce5f-7705-40ae-b768-90ca184944a1",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "S3Test/lambda.js",
+        "code": "exports.handler = function(event, context, callback) {\n\n    console.log(event);\n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "s3slpFileUpBucket",
+            "config": {
+              "type": "s3:ObjectCreated:*",
+              "keyPrefix": "",
+              "keySuffix": ""
+            }
+          }
+        ]
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "0fe1ce5f-7705-40ae-b768-90ca184944a1",
+    "openFiles": [
+      "acacb82b-f99a-4f4c-950d-d62ad9158ce3"
+    ],
+    "currentFileId": "acacb82b-f99a-4f4c-950d-d62ad9158ce3",
+    "resources": {
+      "s3slpFileUpBucket": {
+        "name": "s3slpFileUpBucket",
+        "type": "S3",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "region": "us-east-1",
+            "name": "slp-file-up-bucket"
+          }
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "S3Test",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1572584525708
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "S3Test",
+      "url": "https://github.com/zgma-test/S3Test"
+    }
+  }
+}
