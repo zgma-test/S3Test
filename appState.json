@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "S3Test/lambda.js",
-        "code": "exports.handler = function(event, context, callback) {\n\n    console.log(event);\n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "code": "let AWS = require('aws-sdk');\nconst rekognition = new AWS.Rekognition({ apiVersion: '2016-06-27' });\n\nexports.handler = function (event, context, callback) {\n\n    console.log(event);\n    let s3Obj = event.Records[0].s3;\n\n    let params = {\n        Image: {\n            S3Object: {\n                Bucket: s3Obj.bucket.name,\n                Name: s3Obj.object.key\n            }\n        },\n        MaxLabels: 10\n    };\n    rekognition.detectLabels(params).promise()\n        .then(data => {\n            console.log(data);\n            callback(null, data);\n        })\n        .catch(err => {\n            console.log(err);\n            callback(err);\n        });\n\n    \n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -39,7 +39,27 @@
               "keySuffix": ""
             }
           }
-        ]
+        ],
+        "testCases": {
+          "3ddf4d0b-8f00-4eb3-8d01-eb0b38bffd06": {
+            "id": "3ddf4d0b-8f00-4eb3-8d01-eb0b38bffd06",
+            "name": "Unnamed event",
+            "functionId": "acacb82b-f99a-4f4c-950d-d62ad9158ce3",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        },
+        "customSecurityPolicy": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Resource": "*",
+              "Action": [
+                "rekognition:DetectLabels"
+              ]
+            }
+          ]
+        }
       }
     },
     "deletedFiles": [],
@@ -86,7 +106,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1572584525708
+    "lastSave": 1572585896158
   },
   "VCS_STATE": {
     "provider": "GitHub",
